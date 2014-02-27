@@ -3,7 +3,7 @@
 
 pkgname=kbdd
 pkgver=0.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple daemon and library to make per window layout."
 arch=('i686' 'x86_64')
 url="https://github.com/qnikst/kbdd"
