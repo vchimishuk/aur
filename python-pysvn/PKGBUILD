@@ -19,8 +19,9 @@ build() {
 }
 
 check() {
-  cd "$srcdir/pysvn-$pkgver/Tests"
-  make
+  # cd "$srcdir/pysvn-$pkgver/Tests"
+  # make
+  echo "Tests are disabled."
 }
 
 package() {
