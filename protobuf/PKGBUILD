@@ -1,0 +1,48 @@
+# $Id$
+# Maintainer:  Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Contributor: Thomas S Hatch <thatch45@gmail.com>
+# Contributor: Geoffroy Carrier <geoffroy@archlinux.org>
+# Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
+
+pkgname='protobuf'
+pkgver=2.6.0
+pkgrel=3
+pkgdesc="Protocol Buffers - Google's data interchange format"
+arch=('i686' 'x86_64')
+url='https://github.com/protocolbuffers/protobuf'
+license=('BSD')
+depends=('gcc-libs' 'zlib')
+makedepends=('python2-setuptools')
+source=("https://github.com/protocolbuffers/protobuf/archive/v2.6.0.tar.gz")
+md5sums=('99d5f73dcd473594bf8f245d7b0cfb77')
+
+build() {
+  cd protobuf-$pkgver
+  autoreconf -i
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd protobuf-$pkgver
+  make DESTDIR="$pkgdir" install
+  install -Dm644 COPYING.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  install -Dm644 editors/protobuf-mode.el \
+    "$pkgdir"/usr/share/emacs/site-lisp/protobuf-mode.el
+}
+
+# package_python2-protobuf() {
+#   pkgdesc='Python 2 bindings for Google Protocol Buffers'
+#   depends=("python2" "protobuf=${pkgver}")
+#   provides=("protobuf-python")
+#   conflicts=("protobuf-python")
+#   replaces=("protobuf-python")
+
+#   cd $pkgbase-$pkgver/python
+#   python2 setup.py install --prefix=/usr --root="$pkgdir"
+
+#   install -d "$pkgdir"/usr/share/licenses/$pkgname
+#   ln -s /usr/share/licenses/$pkgbase/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/
+# }
